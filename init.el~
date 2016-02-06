@@ -16,11 +16,10 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/haskell-mode-2.8.0")
 ;;エラーが出るので先頭でghc用のロードパスを定義してみる。
 (add-to-list 'load-path "/usr/bin")
-;; (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete-1.4")
+(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete-1.4")
 ;;elisp内にはghc-modがない。設定ミス？
 ;;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
 (add-to-list 'load-path "/Users/hiro/Library/Haskell/bin/ghc-mod")
-(add-to-list 'load-path "~/.emacs.d/elisp/neotree")
 
 ;;package.elの設定
 (when (require 'package nil t)
@@ -32,14 +31,6 @@
 ;;インストールしたパッケージにロードパスを通して読み込む。
 (package-initialize))
 
-;; auto-install.el 
-(when (require 'auto-install nil t)
-  ;; インストールディレクトリを設定
-  (setq auto-install-directory "~/.emacs.d/elisp")
-  ;; EmacsWikiに登録されているelispの名前を取得
-  (auto-install-update-emacswiki-package-name t)
-  ;; install-elispの関数を利用可能にする
-  (auto-install-compatibility-setup))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -106,6 +97,27 @@
 ;起動時の画面表示の設定
 (if (eq window-system 'ns)
     (x-focus-frame nil))
+
+;; auto-install.el 
+(when (require 'auto-install nil t)
+  ;; インストールディレクトリを設定
+  (setq auto-install-directory "~/.emacs.d/elisp")
+  ;; EmacsWikiに登録されているelispの名前を取得
+  (auto-install-update-emacswiki-package-name t)
+  ;; install-elispの関数を利用可能にする
+  (auto-install-compatibility-setup))
+
+;; emacsclientを使えるようにする
+(server-start)
+
+;; ;; auto-install.el 
+;; (when (require 'auto-install nil t)
+;;   ;; インストールディレクトリを設定
+;;   (setq auto-install-directory "~/.emacs.d/elisp")
+;;   ;; EmacsWikiに登録されているelispの名前を取得
+;;   (auto-install-update-emacswiki-package-name t)
+;;   ;; install-elispの関数を利用可能にする
+;;   (auto-install-compatibility-setup))
 
 ;; emacsclientを使えるようにする
 (server-start)
@@ -245,12 +257,6 @@
 (setq ac-use-fuzzy t)          ;; 曖昧マッチ
 
 
-;;neo-tree
-;(add-to-list 'load-path "/somepaht")
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-
-
 ;;elisp関連
 
 ;;インストール
@@ -264,13 +270,17 @@
 (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 
+
+
 ;;redo*の設定
 (when (require 'redo+ nil t)
   ;;C-'にredoを割り当てる
   (global-set-key (kbd "C-.") 'redo)
   ;;C-.がいい？
   )
- 
+
+  
+
 ;;-----------------------------------------------------------
 ;;rubyの設定
 ;;-----------------------------------------------------------
@@ -288,8 +298,8 @@
 ;;(require 'ruby-electric nil t)
 
 ;;ruby-endを使う。
-(add-to-list 'load-path "/path/to/ruby-end")
-(require 'ruby-end)
+;; (add-to-list 'load-path "/path/to/ruby-end")
+;; (require 'ruby-end)
 
 ;;endに対応する行のハイライト
 (when (require 'ruby-block nil t)
@@ -322,9 +332,7 @@
 	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
 ;;(add-hook 'ruby-mode-hook 'flymake-ruby)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;HTMLの設定
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;エラーが出るので、後で;;(add-to-list ("\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" .nxml-mode))
 
 ;;smart compileの設定
@@ -337,7 +345,7 @@
 ;; パスも通ってるが、cannot open load fileと言われる。
 ;; load-fileを試してみると、rhtml-fontがないといわれる。
 ;; rhtml-fontでload-fileしてみると、うまく行くが、また試してみると今度はrhtml-sgmlphacksが無いと言われる。何がダメなのかさっぱりわからない。
-;;ひとまずコメントアウト
+;;ひとまず
 
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/rhtml")
 ;; (require 'rhtml-mode)
@@ -440,7 +448,3 @@
   (setq cssm-new-line-before-closing-bracket t))
 
 (add-hook 'css-mode-hook 'css-mode-hooks)
-
-;;;;;
-;; end of file
-;;;;;
