@@ -2,7 +2,7 @@
 
 ;; load-path
 
-;; load-path を追加する関数を定義
+;;;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -11,7 +11,7 @@
 	(if (fboundp 'normal-top-level-add-subdir-to-load-path)
     	    (normal-top-level-add-subdirs-to-load-path))))))
 
-;; load-pathに追加
+;;;; load-pathに追加
 (add-to-load-path "elisp" "conf" "public_repos" "elpa")
 (add-to-list 'load-path "~/.emacs.d/elisp/haskell-mode-2.8.0")
 ;;エラーが出るので先頭でghc用のロードパスを定義してみる。
@@ -21,8 +21,9 @@
 ;;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
 (add-to-list 'load-path "/Users/hiro/Library/Haskell/bin/ghc-mod")
 (add-to-list 'load-path "~/.emacs.d/elisp/neotree")
+(add-to-list 'load-path "/elpa/ruby-end-0.3.1/ruby-end")
 
-;;package.elの設定
+;;;;package.elの設定
 (when (require 'package nil t)
   ;;パッケージリストにMarmaladeと開発者運営のELPAを追加
   (add-to-list 'package-archives  
@@ -34,7 +35,7 @@
 ;;インストールしたパッケージにロードパスを通して読み込む。
 (package-initialize))
 
-;; auto-install.el 
+;;;; auto-install.el 
 (when (require 'auto-install nil t)
   ;; インストールディレクトリを設定
   (setq auto-install-directory "~/.emacs.d/elisp")
@@ -44,15 +45,13 @@
   (auto-install-compatibility-setup))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;共通設定
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;共通設定
 
-;;バックアップを作らない。
+;;;;バックアップを作らない。
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
-;;矩形選択
+;;;;矩形選択
 ;;古いらしいので、標準添付のcua-modeを使う。
 ;;(autoload 'sense-region-on "sense-region"
 ;;  "System to toggle region and rectangle" t nil)
@@ -62,7 +61,7 @@
 (define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
 
 
-;;anythingの設定
+;;;;anythingの設定
 ;;(auto-install-batch "anything")
 (when (require 'anything nil t)
   (setq
@@ -85,7 +84,7 @@
   (require 'anything-match-plugin nil t)
 
   (when (and (executable-find "cmigemo")
-	     (require 'migemo nit t))
+	     (require 'migemo nil t))
     (require 'anything-migemo nil t))
   
   (when (require 'anything-complete nil t)
@@ -101,10 +100,8 @@
     ;;descri-bindingをAnythingに置き換える
     (descbinds-anything-install)))
 
+;;;basic preference
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;basic preference
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;起動時の画面表示の設定
 (if (eq window-system 'ns)
     (x-focus-frame nil))
@@ -266,7 +263,7 @@
 
 ;;;stickyの設定
 (require 'sticky)
-(user-sticky-key ";" sticky-alist:ja)
+(use-sticky-key ";" sticky-alist:ja)
 
 
 
@@ -292,24 +289,21 @@
   ;;C-.がいい？
   )
  
-;;-----------------------------------------------------------
-;;rubyの設定
-;;-----------------------------------------------------------
-;;ruby-modeの設定
-;;インデント設定
+;;;;rubyの設定
 
-(setq ruby-indent-level 2 ;;インデント幅を3に。初期値は2
-      ruby-deep-indent-paren-style nil;;改行時のインデントを調整する。
-      ;;ruby-mode実行時にindent-tabs-modeを設定値に変更
-      ruby-indent-tabs-mode t);;タブ文字を使用する。
+;;;;ruby-modeの設定
+;;;;インデント設定
 
-;;ruby blockの設定
+(setq ruby-indent-level 2              ;;インデント幅を2に。
+      ruby-deep-indent-paren-style nil ;;改行時のインデントを調整する。
+      ruby-indent-tabs-mode nil)       ;;インデントにスペースを使用する。
+
+;;;;ruby blockの設定
 ;;エラーが出るためコメントアウト ruby-endを使う。
 ;;https://raw.github.com.ruby/ruby/trunk/misc/ruby-electric.el
 ;;(require 'ruby-electric nil t)
 
-;;ruby-endを使う。
-(add-to-list 'load-path "/path/to/ruby-end")
+;;;;ruby-end
 (require 'ruby-end)
 
 ;;endに対応する行のハイライト
@@ -322,16 +316,6 @@
 (autoload 'inf-ruby-keys "inf-ruby"
   "Set local key defs for inf-ruby in ruby-mode")
 
-;;ruby-mode-hook用の関数を定義
-(defun ruby-mode-hooks()
-  (inf-ruby-keys)
-;;  (ruby-electric-mode t)
-  (ruby-block-mode t)
-  (ruby-end-mode)
-  )
-;;ruby-mode-hook
-(add-hook 'ruby-mode-hook 'ruby-mode-hooks)
-
 ;;flymakeの設定
 (require 'flymake)
 (defun flymake-ruby-init ()
@@ -341,12 +325,21 @@
 	     '("\\.rb\\'" flymake-ruby-init))
 (add-to-list 'flymake-err-line-patterns
 	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
-;;(add-hook 'ruby-mode-hook 'flymake-ruby)
+
+;;;;ruby-mode-hook ruby-mode起動時に適用する
+;;add-hookがうまく言っていない？
+(add-hook 'ruby-mode-hook
+	  '(lamda()
+		 (inf-ruby-keys)
+		 (ruby-block-mode t)
+		 (ruby-end-mode)
+		 (flymake-ruby)
+		 ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;HTMLの設定
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;エラーが出るので、後で;;(add-to-list ("\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" .nxml-mode))
+;;エラーが出るので、後で;;(add-to-list("\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" .nxml-mode))
 
 ;;smart compileの設定
 (require 'smart-compile)
