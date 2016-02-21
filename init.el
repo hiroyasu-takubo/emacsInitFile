@@ -247,13 +247,32 @@
 (setq ac-use-fuzzy t)          ;; 曖昧マッチ
 
 
-;;neo-tree
+;;;neo-tree
 ;(add-to-list 'load-path "/somepaht")
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 
+;;;smooth scroll
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
 
-;;elisp関連
+;;;文字入力の設定
+
+;;;ddskkの設定
+(when (require 'skk nil t)
+  (global-set-key (kbd "C-x j") 'skk-auto-fill-mode)
+  (setq default-input-method "japanese-skk")
+  (require 'skk-study))
+
+;;;stickyの設定
+(require 'sticky)
+(user-sticky-key ";" sticky-alist:ja)
+
+
+
+
+
+;;;elisp関連
 
 ;;インストール
 ;;(install-elisp "http://www.emacswiki.org/emacs/download/redo+.el")
@@ -443,14 +462,7 @@
 
 (add-hook 'css-mode-hook 'css-mode-hooks)
 
-;;;;;;
-;;ddskkの設定
-;;;;;;
 
-(when (require 'skk nil t)
-  (global-set-key (kbd "C-x j") 'skk-auto-fill-mode)
-  (setq default-input-method "japanese-skk")
-  (require 'skk-study))
 
 ;;;;;
 ;; end of file
