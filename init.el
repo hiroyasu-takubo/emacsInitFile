@@ -342,10 +342,11 @@
 ;;エラーが出るので、後で;;(add-to-list("\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" .nxml-mode))
 
 ;;smart compileの設定
-(require 'smart-compile)
-(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-;;なぜかキーバインドで2二回実行するとエラーになる。キーバーインドC-c c C-mをやっても問題が無い。上の方を使えば問題ないが、気持ち悪い。
-(define-key ruby-mode-map (kbd "C- C-c") (kbd "C-c c C-m") )
+;; Shift + c　で大文字が打てないため、一時的にコメントアウト。来バーインドを変えればいけるはず。
+;; (require 'smart-compile)
+;; (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+;; ;;なぜかキーバインドで2二回実行するとエラーになる。キーバーインドC-c c C-mをやっても問題が無い。上の方を使えば問題ないが、気持ち悪い。
+;; (define-key ruby-mode-map (kbd "C- C-c") (kbd "C-c c C-m") )
 
 ;;rhtmlの設定
 ;; パスも通ってるが、cannot open load fileと言われる。
@@ -455,7 +456,39 @@
 
 (add-hook 'css-mode-hook 'css-mode-hooks)
 
+;;;install when you install emacs to new machine
+;; show http://qiita.com/hmikisato/items/043355e1e2dd7ad8cd43
+(require 'cl-lib)
+;; backup list for elpa and melpa
+(defvar my/packages
+  ;; add package you want to install automatically
+  '(auto-isntall auto-complete))
 
+(let ((not-installed
+       (cl-loop for x in my/packages
+		when (not (package-installed-p x))
+		collect x)))
+  (when not-installed
+    (package-refresh-contents)
+    (dolist (pkg not-installed)
+      (package-install pkg))))
+
+;; el-get preference. install el-get when el-get is not installed, 
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(setq el-get-generate-autoloads t)
+(unless (require 'el-get nil 'noerror)
+  (url-retrieve
+   "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
+   (lambda (s)
+     (goto-char (point-max))
+     (eval-print-last-sexp))))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+
+(defvar my/el-get-packages
+  '(howm))
+(el-get 'sync my/el-get-packages)
 
 ;;;;;
 ;; end of file
