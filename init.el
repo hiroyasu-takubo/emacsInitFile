@@ -1,6 +1,6 @@
-;;emacsの設定
+;; emacsの設定
 
-;; load-path
+;; load-pathの設定
 
 ;;;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
@@ -249,21 +249,23 @@
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 
-;;;smooth scroll
-(require 'smooth-scroll)
-(smooth-scroll-mode t)
+;;;;smooth scroll
+;; スクロール速度が遅いためコメントアウト。早く出来ない？
+;; (require 'smooth-scroll)
+;; (smooth-scroll-mode t)
 
-;;;文字入力の設定
+;;;;文字入力の設定
 
-;;;ddskkの設定
+;;;;ddskkの設定
 (when (require 'skk nil t)
   (global-set-key (kbd "C-x j") 'skk-auto-fill-mode)
   (setq default-input-method "japanese-skk")
   (require 'skk-study))
 
-;;;stickyの設定
-(require 'sticky)
-(use-sticky-key ";" sticky-alist:ja)
+;;;;stickyの設定
+;; TODO どのキーにstickyを割り当てるか考える。
+;; (require 'sticky)
+;; (use-sticky-key ";" sticky-alist:ja)
 
 
 
@@ -462,7 +464,7 @@
 ;; backup list for elpa and melpa
 (defvar my/packages
   ;; add package you want to install automatically
-  '(auto-isntall auto-complete))
+  '(auto-install auto-complete))
 
 (let ((not-installed
        (cl-loop for x in my/packages
