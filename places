@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8 -*-
-(("/Users/hiro/.emacs.d/todo.el" . 1136)
- ("/Users/hiro/.emacs.d/init.el" . 4445)
+(("/Users/hiro/.emacs.d/init.el" . 9640)
+ ("/Users/hiro/.emacs.d/todo.el" . 1221)
  ("/Users/hiro/.emacs.d/el-get/.loaddefs.el" . 5815)
  ("/Users/hiro/.emacs.d/elpa/auto-install-20150418.1702/auto-install-autoloads.el" . 240)
  ("/Applications/Emacs.app/Contents/Resources/lisp/emacs-lisp/package.el.gz" . 44539)

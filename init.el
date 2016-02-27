@@ -19,15 +19,10 @@
 
 ;; load-pathに追加
 (add-to-load-path "elisp" "conf" "public_repos" "elpa" "el-get")
-(add-to-list 'load-path "~/.emacs.d/elisp/haskell-mode-2.8.0")
 ;;エラーが出るので先頭でghc用のロードパスを定義してみる。
 (add-to-list 'load-path "/usr/bin")
-;; (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete-1.4")
 ;;elisp内にはghc-modがない。設定ミス？
-;;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
 (add-to-list 'load-path "/Users/hiro/Library/Haskell/bin/ghc-mod")
-;; (add-to-list 'load-path "~/.emacs.d/elisp/neotree")
-;; (add-to-list 'load-path "/elpa/ruby-end-0.3.1/ruby-end")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;package関連の設定
@@ -317,16 +312,12 @@
 ;; TODO スクロール速度が遅いためコメントアウト。早く出来ない？
 (require 'smooth-scroll)
 (smooth-scroll-mode t)
+;; 縦方向のスクロール行数を変更する。
+(setq smooth-scroll/vscroll-step-size 4)
+;; 横方向のスクロール行数を変更する。
+(setq smooth-scroll/hscroll-step-size 4)
 
-
-;;インストール
-;; TODO 消す
-;;(install-elisp "http://www.emacswiki.org/emacs/download/redo+.el")
-
-;; (require 'auto-async-byte-compile)
 ;; ;;自動バイトコンパイルを無効にするファイル名
-;; (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
-;; (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 (require 'auto-async-byte-compile)
 (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
