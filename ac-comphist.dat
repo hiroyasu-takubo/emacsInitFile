@@ -1,4 +1,18 @@
-((("ruby-end-mode" .
+(((":background" .
+   [1 0 0 0 0 0 0 0 0 0 0])
+  ("custom-set-faces" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("set-background-color" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("default" .
+   [1 0 0 0 0 0 0])
+  ("set-face-foreground" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("load-path" .
+   [0 0 0 0 0 1 0 0 0])
+  ("add-to-load-path" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("ruby-end-mode" .
    [1 0 0 0 0 0 0 0 1 1 0 0 0])
   ("ruby-end" .
    [0 0 0 0 1 0 0 0])

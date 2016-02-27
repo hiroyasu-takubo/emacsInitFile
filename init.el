@@ -6,13 +6,14 @@
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
-      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
-	(add-to-list 'load-path default-directory)
-	(if (fboundp 'normal-top-level-add-subdir-to-load-path)
-    	    (normal-top-level-add-subdirs-to-load-path))))))
+      (let ((default-directory
+              (expand-file-name (concat user-emacs-directory path))))
+        (add-to-list 'load-path default-directory)
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)	    
+            (normal-top-level-add-subdirs-to-load-path))))))
 
 ;;;; load-pathに追加
-(add-to-load-path "elisp" "conf" "public_repos" "elpa")
+(add-to-load-path "elisp" "conf" "public_repos" "elpa" "el-get")
 (add-to-list 'load-path "~/.emacs.d/elisp/haskell-mode-2.8.0")
 ;;エラーが出るので先頭でghc用のロードパスを定義してみる。
 (add-to-list 'load-path "/usr/bin")
@@ -20,8 +21,8 @@
 ;;elisp内にはghc-modがない。設定ミス？
 ;;(add-to-list 'load-path "~/.emacs.d/elisp/ghc-mod") 
 (add-to-list 'load-path "/Users/hiro/Library/Haskell/bin/ghc-mod")
-(add-to-list 'load-path "~/.emacs.d/elisp/neotree")
-(add-to-list 'load-path "/elpa/ruby-end-0.3.1/ruby-end")
+;; (add-to-list 'load-path "~/.emacs.d/elisp/neotree")
+;; (add-to-list 'load-path "/elpa/ruby-end-0.3.1/ruby-end")
 
 ;;;;package.elの設定
 (when (require 'package nil t)
@@ -139,8 +140,11 @@
 (setq-default tab-witdh 4)
 
 ;;インデントにタブ文字を使うか
-;;(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;色の設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;color-theme関連
 (when (require 'color-theme nil t)
   ;;テーマを読み込むための設定
@@ -149,19 +153,23 @@
   (color-theme-hober))
  
 ;;ハイライト関連の設定
+;; 色の一覧　http://homepage1.nifty.com/blankspace/emacs/emacs_rgb.html
 (defface my-hl-line-face
   ;;背景がdarkならば背景色を紺に
   '((((class color) (background dark))
-    (:background "LightGoldenrodYellow" t))
+    ;; (:background "LightGoldenrodYellow" t))
+    (:background "SaddleBrown" t))
    ;;背景がlightならば背景色を緑に
     (((class color) (background light))
-     (:background "LightGoldenrodYellow" t))
+     (:background "SeaGreen" t))
     (t (:bold t)))
   "hl-line's my face")
 (setq hl-line-face 'my-hl-line-face)
+
 ;; 現在行に色をつける。
 (global-hl-line-mode t)
-;; 色
+
+;; ハイライトの色
 (set-face-background 'hl-line "darkolivegreen")
  
 ;;対応する括弧のハイライト
@@ -172,6 +180,12 @@
 ;;色を変更する
 (set-face-background 'show-paren-match-face nil)
 (set-face-underline 'show-paren-match-face "yellow")
+;;コメントの色
+(set-face-foreground 'font-lock-comment-face "LimeGreen")
+;; 背景色を変更する。
+;; (set-background-color "white")
+;; テーマの変更
+;; (load-theme "adwaita" t)
 
 ;; 履歴を次回Emacs起動時にも保存する。
 (savehist-mode t)
@@ -251,8 +265,8 @@
 
 ;;;;smooth scroll
 ;; スクロール速度が遅いためコメントアウト。早く出来ない？
-;; (require 'smooth-scroll)
-;; (smooth-scroll-mode t)
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
 
 ;;;;文字入力の設定
 
@@ -495,3 +509,17 @@
 ;;;;;
 ;; end of file
 ;;;;;
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(custom-enabled-themes (quote (misterioso))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
