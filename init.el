@@ -1,8 +1,13 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; emacsの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load-pathの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;; load-path を追加する関数を定義
+;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -12,7 +17,7 @@
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)	    
             (normal-top-level-add-subdirs-to-load-path))))))
 
-;;;; load-pathに追加
+;; load-pathに追加
 (add-to-load-path "elisp" "conf" "public_repos" "elpa" "el-get")
 (add-to-list 'load-path "~/.emacs.d/elisp/haskell-mode-2.8.0")
 ;;エラーが出るので先頭でghc用のロードパスを定義してみる。
@@ -24,7 +29,11 @@
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/neotree")
 ;; (add-to-list 'load-path "/elpa/ruby-end-0.3.1/ruby-end")
 
-;;;;package.elの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;package関連の設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; package.elの設定
 (when (require 'package nil t)
   ;;パッケージリストにMarmaladeと開発者運営のELPAを追加
   (add-to-list 'package-archives
@@ -36,7 +45,7 @@
 ;;インストールしたパッケージにロードパスを通して読み込む。
 (package-initialize))
 
-;;;; auto-install.el 
+;; auto-install.el 
 (when (require 'auto-install nil t)
   ;; インストールディレクトリを設定
   (setq auto-install-directory "~/.emacs.d/elisp")
@@ -45,24 +54,10 @@
   ;; install-elispの関数を利用可能にする
   (auto-install-compatibility-setup))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;anythingの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;共通設定
-
-;;;;バックアップを作らない。
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-
-;;;;矩形選択
-;;古いらしいので、標準添付のcua-modeを使う。
-;;(autoload 'sense-region-on "sense-region"
-;;  "System to toggle region and rectangle" t nil)
-;;(sense-reigion-on)
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
-(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
-
-
-;;;;anythingの設定
 ;;(auto-install-batch "anything")
 (when (require 'anything nil t)
   (setq
@@ -101,7 +96,23 @@
     ;;descri-bindingをAnythingに置き換える
     (descbinds-anything-install)))
 
-;;;basic preference
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;共通設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;バックアップを作らない。
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+
+;;矩形選択
+;;古いらしいので、標準添付のcua-modeを使う。
+;;(autoload 'sense-region-on "sense-region"
+;;  "System to toggle region and rectangle" t nil)
+;;(sense-reigion-on)
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
 
 ;起動時の画面表示の設定
 (if (eq window-system 'ns)
@@ -142,6 +153,56 @@
 ;;インデントにタブ文字を使うか
 (setq-default indent-tabs-mode nil)
 
+;; 履歴を次回Emacs起動時にも保存する。
+(savehist-mode t)
+
+;;ファイル内のカーソル位置を記憶する。
+(setq-default save-place t)
+(require 'saveplace)
+
+;; シェルに合わせて、C-hは後退に割り当てる。
+(global-set-key (kbd "C-h") 'delete-backward-char)
+
+;; モードラインに時刻を表示
+(display-time)
+
+;;行番号・桁番号を表示する。
+(line-number-mode t)
+(column-number-mode t)
+
+;; リージョンに色を付ける。
+;; 色の設定に移動するか？
+(transient-mark-mode t)
+
+;; Gcを減らして軽くする。
+(setq gc-cons-threshold (* 10 gc-cons-threshold))
+
+;; ログの記録行数を増やす。
+(setq message-log-max 10000)
+
+;; ミニバッファを再帰的に呼び出せるように。
+(setq enable-recursive-minibuffers t)
+
+;; ダイアログボックスを使わないようにする。
+(setq use-dialog-box nil)
+(defalias 'message-box 'message)
+
+;; 履歴をたくさん保存する。
+(setq history-length 1000)
+
+;; キーストロークをエコーエリアに速く表示する。
+(setq echo-keystorkes 0.1)
+
+;; 大きいファイルを開こうとした時に警告を発生
+(setq large-file-warning-threshold (* 25 1024 1024))
+
+;; ミニヴァッファで入力を取り消しても履歴に残す。
+(defadvice abort-recusive-edit (before minibuffe-save activate)
+  (when (eq (selcted-window) (active-minibuffer-window))
+    (add-to-history minibuffer-history-variable (minibuffer-contents))))
+;;yesと入力するのではなく、y
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;色の設定
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -170,7 +231,7 @@
 (global-hl-line-mode t)
 
 ;; ハイライトの色
-(set-face-background 'hl-line "darkolivegreen")
+(set-face-background  'hl-line "darkolivegreen")
  
 ;;対応する括弧のハイライト
 (setq show-paren-delay 0);;表示までの秒数
@@ -187,88 +248,36 @@
 ;; テーマの変更
 ;; (load-theme "adwaita" t)
 
-;; 履歴を次回Emacs起動時にも保存する。
-(savehist-mode t)
-
-;;ファイル内のカーソル位置を記憶する。
-(setq-default save-place t)
-(require 'saveplace)
-
-;; シェルに合わせて、C-hは後退に割り当てる。
-(global-set-key (kbd "C-h") 'delete-backward-char)
-
-;; モードラインに時刻を表示
-(display-time)
-
-;;行番号・桁番号を表示する。
-(line-number-mode t)
-(column-number-mode t)
-
-;; リージョンに色を付ける。
-(transient-mark-mode t)
-
-;; Gcを減らして軽くする。
-(setq gc-cons-threshold (* 10 gc-cons-threshold))
-
-;; ログの記録行数を増やす。
-(setq message-log-max 10000)
-
-;; ミニバッファを再帰的に呼び出せるように。
-(setq enable-recursive-minibuffers t)
-
-;; ダイアログボックスを使わないようにする。
-(setq use-dialog-box nil)
-(defalias 'message-box 'message)
-
-;; 履歴をたくさんほzんする。
-(setq history-length 1000)
-
-;; キーストロークをエコーエリアに速く表示する。
-(setq echo-keystorkes 0.1)
-
-
-;; 大きいファイルを開こうとした時に警告を発生
-(setq large-file-warning-threshold (* 25 1024 1024))
-
-;; ミニヴァッファで入力を取り消しても履歴に残す。
-(defadvice abort-recusive-edit (before minibuffe-save activate)
-  (when (eq (selcted-window) (active-minibuffer-window))
-    (add-to-history minibuffer-history-variable (minibuffer-contents))))
-;;yesと入力するのではなく、y
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; ツールバーとスクロールバーを消す。
 ;; 不便？　消さない。
 ;; (tool-bar-mode nil)
 ;; (scroll-bar-mode nil)
 
-;;
-;; Auto Complete
-;;
-(require 'auto-complete)
-(require 'auto-complete-config)
-(global-auto-complete-mode t)
-(ac-config-default)
-(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
-(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
-(add-to-list 'ac-modes 'org-mode)
-(add-to-list 'ac-modes 'yatex-mode)
-(ac-set-trigger-key "TAB")
-(setq ac-use-menu-map t)       ;; 補完メニュー表示時にC-n/C-pで補完候補選択
-(setq ac-use-fuzzy t)          ;; 曖昧マッチ
 
 
-;;;neo-tree
-;(add-to-list 'load-path "/somepaht")
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
 
-;;;;smooth scroll
-;; スクロール速度が遅いためコメントアウト。早く出来ない？
-(require 'smooth-scroll)
-(smooth-scroll-mode t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(custom-enabled-themes (quote (misterioso))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
-;;;;文字入力の設定
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;文字入力の設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;ddskkの設定
 (when (require 'skk nil t)
@@ -282,12 +291,36 @@
 ;; (use-sticky-key ";" sticky-alist:ja)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;elisp関連の設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;Auto Complete
+(require 'auto-complete)
+(require 'auto-complete-config)
+(global-auto-complete-mode t)
+(ac-config-default)
+(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
+(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
+(add-to-list 'ac-modes 'org-mode)
+(add-to-list 'ac-modes 'yatex-mode)
+(ac-set-trigger-key "TAB")
+(setq ac-use-menu-map t)       ;; 補完メニュー表示時にC-n/C-pで補完候補選択
+(setq ac-use-fuzzy t)          ;; 曖昧マッチ
 
 
+;;neo-tree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
 
-;;;elisp関連
+;;smooth scroll
+;; TODO スクロール速度が遅いためコメントアウト。早く出来ない？
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
+
 
 ;;インストール
+;; TODO 消す
 ;;(install-elisp "http://www.emacswiki.org/emacs/download/redo+.el")
 
 ;; (require 'auto-async-byte-compile)
@@ -305,21 +338,23 @@
   ;;C-.がいい？
   )
  
-;;;;rubyの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;rubyの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;ruby-modeの設定
-;;;;インデント設定
+;;ruby-modeの設定
 
+;;インデント設定
 (setq ruby-indent-level 2              ;;インデント幅を2に。
       ruby-deep-indent-paren-style nil ;;改行時のインデントを調整する。
       ruby-indent-tabs-mode nil)       ;;インデントにスペースを使用する。
 
-;;;;ruby blockの設定
+;;ruby blockの設定
 ;;エラーが出るためコメントアウト ruby-endを使う。
 ;;https://raw.github.com.ruby/ruby/trunk/misc/ruby-electric.el
 ;;(require 'ruby-electric nil t)
 
-;;;;ruby-end
+;;ruby-end
 (require 'ruby-end)
 
 ;;endに対応する行のハイライト
@@ -342,7 +377,14 @@
 (add-to-list 'flymake-err-line-patterns
 	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
 
-;;;;ruby-mode-hook ruby-mode起動時に適用する
+;;smart compileの設定
+;; Shift + c　で大文字が打てないため、一時的にコメントアウト。来バーインドを変えればいけるはず。
+;; (require 'smart-compile)
+;; (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+;; ;;なぜかキーバインドで2二回実行するとエラーになる。キーバーインドC-c c C-mをやっても問題が無い。上の方を使えば問題ないが、気持ち悪い。
+;; (define-key ruby-mode-map (kbd "C- C-c") (kbd "C-c c C-m") )
+
+;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
 (add-hook 'ruby-mode-hook
 	  '(lamda()
@@ -352,17 +394,11 @@
 		 (flymake-ruby)
 		 ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;HTMLの設定
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;エラーが出るので、後で;;(add-to-list("\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" .nxml-mode))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;smart compileの設定
-;; Shift + c　で大文字が打てないため、一時的にコメントアウト。来バーインドを変えればいけるはず。
-;; (require 'smart-compile)
-;; (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-;; ;;なぜかキーバインドで2二回実行するとエラーになる。キーバーインドC-c c C-mをやっても問題が無い。上の方を使えば問題ないが、気持ち悪い。
-;; (define-key ruby-mode-map (kbd "C- C-c") (kbd "C-c c C-m") )
+;;エラーが出るので、後で;;(add-to-list("\\.[sx]?html?\\(\\.[a-zA-Z_]+\\)?\\'" .nxml-mode))
 
 ;;rhtmlの設定
 ;; パスも通ってるが、cannot open load fileと言われる。
@@ -376,10 +412,10 @@
 ;;     (lambda () (rinari-launch)))
 
 
-;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;HASKELLの設定 設定は書きを参照 全然設定を行ってないので、後ですること。
 ;;http://d.hatena.ne.jp/kitokitoki/20111217/p1
-;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;エラー？が出るのでいったん、コメントアウト、autoloadにしてみる。
 ;;(require 'haskell-mode)
@@ -419,7 +455,6 @@
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
-
 ;;ghc-browse-documentモードの設定
 (require 'anything)
 (require 'anything-config)
@@ -456,9 +491,10 @@
   (lambda()
     (define-key haskell-mode-map (kbd "C-M-d") 'anything-ghc-browse-document)))
 
-;;;;;;;;;;;;;;;;;;;;
-;;cssm-mode
-;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;cssm-modeの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun css-mode-hooks()
   "css-mode hooks"
   ;; indent c sytle
@@ -471,6 +507,11 @@
   (setq cssm-new-line-before-closing-bracket t))
 
 (add-hook 'css-mode-hook 'css-mode-hooks)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;他環境移行時の設定 今はエラーが出るため、コメントアウト
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ;;;install when you install emacs to new machine
 ;; ;; show http://qiita.com/hmikisato/items/043355e1e2dd7ad8cd43
@@ -506,20 +547,7 @@
 ;;   '(howm))
 ;; (el-get 'sync my/el-get-packages)
 
-;;;;;
-;; end of file
-;;;;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (misterioso))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;end of file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
