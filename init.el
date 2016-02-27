@@ -458,39 +458,39 @@
 
 (add-hook 'css-mode-hook 'css-mode-hooks)
 
-;;;install when you install emacs to new machine
-;; show http://qiita.com/hmikisato/items/043355e1e2dd7ad8cd43
-(require 'cl-lib)
-;; backup list for elpa and melpa
-(defvar my/packages
-  ;; add package you want to install automatically
-  '(auto-install auto-complete))
+;; ;;;install when you install emacs to new machine
+;; ;; show http://qiita.com/hmikisato/items/043355e1e2dd7ad8cd43
+;; (require 'cl-lib)
+;; ;; backup list for elpa and melpa
+;; (defvar my/packages
+;;   ;; add package you want to install automatically
+;;   '(auto-install auto-complete))
 
-(let ((not-installed
-       (cl-loop for x in my/packages
-		when (not (package-installed-p x))
-		collect x)))
-  (when not-installed
-    (package-refresh-contents)
-    (dolist (pkg not-installed)
-      (package-install pkg))))
+;; (let ((not-installed
+;;        (cl-loop for x in my/packages
+;; 		when (not (package-installed-p x))
+;; 		collect x)))
+;;   (when not-installed
+;;     (package-refresh-contents)
+;;     (dolist (pkg not-installed)
+;;       (package-install pkg))))
 
-;; el-get preference. install el-get when el-get is not installed, 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(setq el-get-generate-autoloads t)
-(unless (require 'el-get nil 'noerror)
-  (url-retrieve
-   "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (goto-char (point-max))
-     (eval-print-last-sexp))))
+;; ;; el-get preference. install el-get when el-get is not installed, 
+;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;; (setq el-get-generate-autoloads t)
+;; (unless (require 'el-get nil 'noerror)
+;;   (url-retrieve
+;;    "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
+;;    (lambda (s)
+;;      (goto-char (point-max))
+;;      (eval-print-last-sexp))))
 
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
+;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+;; (el-get 'sync)
 
-(defvar my/el-get-packages
-  '(howm))
-(el-get 'sync my/el-get-packages)
+;; (defvar my/el-get-packages
+;;   '(howm))
+;; (el-get 'sync my/el-get-packages)
 
 ;;;;;
 ;; end of file
