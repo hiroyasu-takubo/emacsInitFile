@@ -284,50 +284,6 @@
 ;; TODO どのキーにstickyを割り当てるか考える。
 ;; (require 'sticky)
 ;; (use-sticky-key ";" sticky-alist:ja)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;elisp関連の設定
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;Auto Complete
-(require 'auto-complete)
-(require 'auto-complete-config)
-(global-auto-complete-mode t)
-(ac-config-default)
-(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
-(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
-(add-to-list 'ac-modes 'org-mode)
-(add-to-list 'ac-modes 'yatex-mode)
-(ac-set-trigger-key "TAB")
-(setq ac-use-menu-map t)       ;; 補完メニュー表示時にC-n/C-pで補完候補選択
-(setq ac-use-fuzzy t)          ;; 曖昧マッチ
-
-
-;;neo-tree
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-
-;;smooth scroll
-;; TODO スクロール速度が遅いためコメントアウト。早く出来ない？
-(require 'smooth-scroll)
-(smooth-scroll-mode t)
-;; 縦方向のスクロール行数を変更する。
-(setq smooth-scroll/vscroll-step-size 4)
-;; 横方向のスクロール行数を変更する。
-(setq smooth-scroll/hscroll-step-size 4)
-
-;; ;;自動バイトコンパイルを無効にするファイル名
-(require 'auto-async-byte-compile)
-(setq auto-async-byte-compile-exclude-files-regexp "/junk/")
-(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
-
-;;redo*の設定
-(when (require 'redo+ nil t)
-  ;;C-'にredoを割り当てる
-  (global-set-key (kbd "C-.") 'redo)
-  ;;C-.がいい？
-  )
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;rubyの設定
@@ -538,6 +494,55 @@
 ;;   '(howm))
 ;; (el-get 'sync my/el-get-packages)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;elisp関連の設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;Auto Complete
+(require 'auto-complete)
+(require 'auto-complete-config)
+(global-auto-complete-mode t)
+(ac-config-default)
+(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
+(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
+(add-to-list 'ac-modes 'org-mode)
+(add-to-list 'ac-modes 'yatex-mode)
+(ac-set-trigger-key "TAB")
+(setq ac-use-menu-map t)       ;; 補完メニュー表示時にC-n/C-pで補完候補選択
+(setq ac-use-fuzzy t)          ;; 曖昧マッチ
+
+
+;;neo-tree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+;;smooth scroll
+;; TODO スクロール速度が遅いためコメントアウト。早く出来ない？
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
+;; 縦方向のスクロール行数を変更する。
+(setq smooth-scroll/vscroll-step-size 4)
+;; 横方向のスクロール行数を変更する。
+(setq smooth-scroll/hscroll-step-size 4)
+
+;; ;;自動バイトコンパイルを無効にするファイル名
+(require 'auto-async-byte-compile)
+(setq auto-async-byte-compile-exclude-files-regexp "/junk/")
+(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
+
+;;redo*の設定
+(when (require 'redo+ nil t)
+  ;;C-'にredoを割り当てる
+  (global-set-key (kbd "C-.") 'redo)
+  ;;C-.がいい？
+  )
+
+;; guide-keyの設定
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
+; Enable guide-key-mode
+(guide-key-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;end of file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
