@@ -544,9 +544,13 @@
 ; Enable guide-key-mode
 (guide-key-mode 1)
 
-;; helm
+;; helmの設定
 (require 'helm-config)
 (helm-mode t)
+
+;; helm-describesの設定
+(require 'helm-descbinds)
+(helm-descbinds-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;end of file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
