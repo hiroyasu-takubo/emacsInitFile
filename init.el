@@ -543,6 +543,10 @@
 (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
 ; Enable guide-key-mode
 (guide-key-mode 1)
+
+;; helm
+(require 'helm-config)
+(helm-mode t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;end of file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
