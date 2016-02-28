@@ -34,8 +34,5 @@ twitterをやりたい。Tweetdecがすぐ落ちる。
 ☆rubyの開発環境を整える。 色々入れてみたけど、使い方までは調べてない。
 helmを使いこなす。とりあえず、M-x helm-descbindsで表示して便利そうな物を使えば良さそう。http://konbu13.hatenablog.com/entry/2014/01/22/231058
 ☆robe-startを自動的に実行できないか？
-
-
-
-
-
+☆rubyの静的解析を強化できないだろうか。
+☆rubyというより、Railsの開発環境も整えた方が良さげ。

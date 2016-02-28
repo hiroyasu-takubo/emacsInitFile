@@ -319,15 +319,26 @@
 (autoload 'inf-ruby-keys "inf-ruby"
   "Set local key defs for inf-ruby in ruby-mode")
 
-;;flymakeの設定
-(require 'flymake)
-(defun flymake-ruby-init ()
-  (list "ruby" (list "-c" (flymake-init-create-temp-buffer-copy
-			   'flymake-create-temp-inplace))))
-(add-to-list ' flymake-allowed-file-name-masks
-	     '("\\.rb\\'" flymake-ruby-init))
-(add-to-list 'flymake-err-line-patterns
-	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
+;;flymake-rubyの設定(flymakeの設定)
+;; 代わりにflycheckを使う。
+;; (require 'flymake)
+;; (defun flymake-ruby-init ()
+;;   (list "ruby" (list "-c" (flymake-init-create-temp-buffer-copy
+;; 			   'flymake-create-temp-inplace))))
+;; (add-to-list ' flymake-allowed-file-name-masks
+;; 	     '("\\.rb\\'" flymake-ruby-init))
+;; (add-to-list 'flymake-err-line-patterns
+;; 	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
+
+;; flycheck
+(require 'flycheck)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+;; flycheck-color-mode-line flycheckをカラフルにする。
+(require 'flycheck-color-mode-line)
+;; 多分flycheckは入っているので、コメントアウト。うまく行かなかったら下記ので。
+;; (eval-after-load "flycheck"
+;;   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
 ;;smart compileの設定
 ;; これで “C-c C-c”で、編集中の ruby ファイルを実行できます。”C-c c”の方はミニバッファに “ruby xxx.rb”まで入力された状態になるので、こちらは引数など与えたいときに。
@@ -385,7 +396,9 @@
 		 (inf-ruby-keys)
 		 (ruby-block-mode t)
 		 (ruby-end-mode)
-		 (flymake-ruby)
+		 ;; (flymake-ruby)
+                 (flycheck-mode)
+                 (flycheck-color-mode-line-mode)
                  (ruby-mode-hook-rcodetools)
                  )
           )
