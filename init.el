@@ -49,6 +49,11 @@
   ;; install-elispの関数を利用可能にする
   (auto-install-compatibility-setup))
 
+;; el-get
+(require 'el-get)
+;; el-getでダウンロードしたパッケージは ~/.emacs.d/ に入るようにする
+(setq el-get-dir (locate-user-emacs-file ""))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;anythingの設定
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

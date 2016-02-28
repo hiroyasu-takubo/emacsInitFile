@@ -1,13 +1,15 @@
 ;;; -*- coding: utf-8 -*-
-(("/Users/hiro/.emacs.d/elpa/smooth-scroll-20130321.2114/smooth-scroll.el" . 24054)
+(("/Users/hiro/.emacs.d/"
+  (dired-filename . "/Users/hiro/.emacs.d/init.el"))
+ ("/Users/hiro/.emacs.d/init.el" . 1830)
+ ("/Users/hiro/.emacs.d/elpa/el-get-20160205.2340/el-get-autoloads.el" . 5613)
+ ("/Users/hiro/Documents/program/ruby/atom.rb" . 37)
+ ("/Users/hiro/.emacs.d/elpa/smooth-scroll-20130321.2114/smooth-scroll.el" . 24054)
  ("/Users/hiro/Documents/program/ruby/hashProc.rb" . 112)
  ("/Users/hiro/.bash_profile" . 518)
  ("/Users/hiro/.emacs.d/elisp/smart-compile.el" . 2290)
- ("/Users/hiro/.emacs.d/init.el" . 8931)
  ("/Users/hiro/.emacs.d/todo.el" . 1234)
  ("/Users/hiro/.emacs.d/elpa/anzu-20160130.1855/anzu-autoloads.el" . 1428)
- ("/Users/hiro/.emacs.d/"
-  (dired-filename . "/Users/hiro/.emacs.d/todo.el"))
  ("/Users/hiro/.emacs.d/recentf" . 248)
  ("/Users/hiro/.emacs.d/.DS_Store" . 2)
  ("/Users/hiro/.emacs.d/elpa/helm-descbinds-20160108.1947/helm-descbinds-autoloads.el" . 1833)
