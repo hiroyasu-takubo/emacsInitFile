@@ -332,6 +332,19 @@
 ;; ;;なぜかキーバインドで2二回実行するとエラーになる。キーバーインドC-c c C-mをやっても問題が無い。上の方を使えば問題ないが、気持ち悪い。
 ;; (define-key ruby-mode-map (kbd "C- C-c") (kbd "C-c c C-m") )
 
+;; rcodetoolsの設定を行う。
+;; rubyコードの行末に # = >と入れてxmpfilterを実行すると、その行の返り値を見る事が可能。
+;; rct-completeを使うと、コードの自動補完が使える。
+;; ruby-toggle-bufferはテストコードとソースコードを切り替える事が出来る。
+;; 説明はgithubの説明を参照 https://github.com/tnoda/rcodetools-x
+(require 'rcodetools)
+(setq rct-find-tag-if-available nil)
+(defun ruby-mode-hook-rcodetools ()
+  (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
+  (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
+  (define-key ruby-mode-map "\C-c\C-f" 'rct-ri))
+(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
+
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
 (add-hook 'ruby-mode-hook
@@ -340,7 +353,10 @@
 		 (ruby-block-mode t)
 		 (ruby-end-mode)
 		 (flymake-ruby)
-		 ))
+                 (ruby-mode-hook-rcodetools)
+                 )
+          )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;HTMLの設定
@@ -564,7 +580,7 @@
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
-;; ファイルを探し中にTABで補完するようにする。元はhelm-select-actionが割り当てられている。
+;; ファイルを探し中にTABで補完するようにする。元はhelm-select-actionが割り当てられている。TABはhelmでよく使うキーらしいので、他の補完方法を考える。helmのチュートリアルを読んでみる。
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 

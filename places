@@ -1,12 +1,12 @@
 ;;; -*- coding: utf-8 -*-
 (("/Users/hiro/.emacs.d/"
-  (dired-filename . "/Users/hiro/.emacs.d/init.el"))
- ("/Users/hiro/.emacs.d/recentf" . 248)
+  (dired-filename . "/Users/hiro/.emacs.d/todo.el"))
+ ("/Users/hiro/.emacs.d/todo.el" . 1050)
  ("/Users/hiro/.emacs.d/init.el" . 16043)
+ ("/Users/hiro/.emacs.d/recentf" . 248)
  ("/Users/hiro/.emacs.d/.DS_Store" . 2)
  ("/Users/hiro/.emacs.d/elpa/helm-descbinds-20160108.1947/helm-descbinds-autoloads.el" . 1833)
  ("/Users/hiro/Documents/program/ruby/hello.rb" . 171)
- ("/Users/hiro/.emacs.d/todo.el" . 690)
  ("/Users/hiro/.emacs.d/elpa/helm-R-20120819.1714/helm-R-autoloads.el" . 340)
  ("/Users/hiro/.emacs.d/elpa/helm-20160226.515/helm-autoloads.el" . 26591)
  ("/Users/hiro/.emacs.d/elpa/popup-20151222.1339/popup-autoloads.el" . 219)
