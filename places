@@ -1,8 +1,13 @@
 ;;; -*- coding: utf-8 -*-
-(("/Users/hiro/.emacs.d/"
+(("/Users/hiro/.emacs.d/elpa/smooth-scroll-20130321.2114/smooth-scroll.el" . 24054)
+ ("/Users/hiro/Documents/program/ruby/hashProc.rb" . 112)
+ ("/Users/hiro/.bash_profile" . 518)
+ ("/Users/hiro/.emacs.d/elisp/smart-compile.el" . 2290)
+ ("/Users/hiro/.emacs.d/init.el" . 8931)
+ ("/Users/hiro/.emacs.d/todo.el" . 1234)
+ ("/Users/hiro/.emacs.d/elpa/anzu-20160130.1855/anzu-autoloads.el" . 1428)
+ ("/Users/hiro/.emacs.d/"
   (dired-filename . "/Users/hiro/.emacs.d/todo.el"))
- ("/Users/hiro/.emacs.d/todo.el" . 1050)
- ("/Users/hiro/.emacs.d/init.el" . 16043)
  ("/Users/hiro/.emacs.d/recentf" . 248)
  ("/Users/hiro/.emacs.d/.DS_Store" . 2)
  ("/Users/hiro/.emacs.d/elpa/helm-descbinds-20160108.1947/helm-descbinds-autoloads.el" . 1833)
@@ -119,7 +124,6 @@
  ("/Users/hiro/Documents/program/Rails/bootstrap/sample_code/sample0.html" . 1229)
  ("/Users/hiro/Documents/program/Rails/myApp/app/views/login/signin.css" . 263)
  ("/Users/hiro/Documents/program/Rails/bootstrap/bootstrap-3.3.5-dist/index.html" . 1249)
- ("/Users/hiro/Documents/program/ruby/hashProc.rb" . 323)
  ("/Users/hiro/Documents/program/ruby/pascalTraiangle.rb" . 525)
  ("/Users/hiro/Documents/program/Rails/myApp/app/views/menu/tiles.html.erb" . 570)
  ("/Users/hiro/Documents/program/Rails/myApp/app/views/menu/showmenu.html.erb" . 264)

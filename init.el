@@ -304,7 +304,6 @@
 
 ;;ruby-end
 (require 'ruby-end)
-
 ;;endに対応する行のハイライト
 (when (require 'ruby-block nil t)
   (setq ruby-block-highlight-toggle t))
@@ -326,11 +325,13 @@
 	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
 
 ;;smart compileの設定
+;; これで “C-c C-c”で、編集中の ruby ファイルを実行できます。”C-c c”の方はミニバッファに “ruby xxx.rb”まで入力された状態になるので、こちらは引数など与えたいときに。
+;; 無限ループなどで止まってくれないruby実行中のバッファを殺すにはM-x kill-comilation
 ;; Shift + c　で大文字が打てないため、一時的にコメントアウト。来バーインドを変えればいけるはず。
-;; (require 'smart-compile)
-;; (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-;; ;;なぜかキーバインドで2二回実行するとエラーになる。キーバーインドC-c c C-mをやっても問題が無い。上の方を使えば問題ないが、気持ち悪い。
-;; (define-key ruby-mode-map (kbd "C- C-c") (kbd "C-c c C-m") )
+(require 'smart-compile)
+(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+;;なぜかキーバインドで2二回実行するとエラーになる。キーバーインドC-c c C-mをやっても問題が無い。上の方を使えば問題ないが、気持ち悪い。
+(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m") )
 
 ;; rcodetoolsの設定を行う。
 ;; install rcodetoolsのインストールが必要
