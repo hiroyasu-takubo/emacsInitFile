@@ -389,6 +389,25 @@
 (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
 (add-hook 'robe-mode-hook 'robe-ac-setup)
 
+;; robocopの設定
+;; Install rubocopの設定が必要。
+(require 'rubocop)
+
+;; TODO 後で設定する。 flycheckのcheckツールにrubocopを導入。
+;; (flycheck-define-checker ruby-rubocop
+;;   "A Ruby syntax and style checker using the RuboCop tool."
+;;   :command ("rubocop" "--format" "emacs" "--silent"
+;;             (config-file "--config" flycheck-rubocoprc)
+;;             source)
+;;   :error-patterns
+;;   ((warning line-start
+;;             (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
+;;             line-end)
+;;    (error line-start
+;;           (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
+;;           line-end))
+;;    :modes (enh-ruby-mode motion-mode))
+
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
 (add-hook 'ruby-mode-hook
@@ -400,6 +419,7 @@
                  (flycheck-mode)
                  (flycheck-color-mode-line-mode)
                  (ruby-mode-hook-rcodetools)
+                 (rubocop-mode)
                  )
           )
 
