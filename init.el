@@ -333,6 +333,7 @@
 ;; (define-key ruby-mode-map (kbd "C- C-c") (kbd "C-c c C-m") )
 
 ;; rcodetoolsの設定を行う。
+;; install rcodetoolsのインストールが必要
 ;; rubyコードの行末に # = >と入れてxmpfilterを実行すると、その行の返り値を見る事が可能。
 ;; rct-completeを使うと、コードの自動補完が使える。
 ;; ruby-toggle-bufferはテストコードとソースコードを切り替える事が出来る。
@@ -343,7 +344,25 @@
   (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
   (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
   (define-key ruby-mode-map "\C-c\C-f" 'rct-ri))
-(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
+
+;; rdefsの設定を行う。
+;; install rdefsのインストールが必要
+;; TODO 設定の調査が必要
+
+(require 'anzu)
+(global-anzu-mode +1)
+
+(set-face-attribute 'anzu-mode-line nil
+                    :foreground "yellow" :weight 'bold)
+(custom-set-variables
+ ;; マイナーモード名。常に有効にする予定なので、唐文字を表示
+ '(anzu-mode-lighter "")
+ ;; 置換コマンドをリージョン指定で行った時に、コマンド実行直後リージョンのハイライトを無効にする。みずらいので
+ '(anzu-deactivate-region t) 
+ ;; マッチ数の検索時、この数以上は数えないようにする。数が多いと検索が遅くなる。
+'(anzu-search-threshold 4000)
+ ;; '(anzu-use-mimego t)
+)
 
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
