@@ -370,6 +370,14 @@
  ;; '(anzu-use-mimego t)
 )
 
+;; robeの設定
+;; Install pryのインストールが必要
+;; 次のコマンドで起動 M-x inf-ruby → M-x robe-start
+;; 
+(autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
+(autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
+(add-hook 'robe-mode-hook 'robe-ac-setup)
+
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
 (add-hook 'ruby-mode-hook
