@@ -1,5 +1,21 @@
 ;;; -*- coding: utf-8 -*-
-(("/Users/hiro/Documents/"
+(("/Users/hiro/.emacs.d/init.el" . 11387)
+ ("/Users/hiro/.emacs.d/elpa/rubocop-20151123.2137/rubocop-autoloads.el" . 1041)
+ ("/Users/hiro/Documents/program/ruby/clowler/RubyCrawlerSample/chapter2/just-crawling.rb" . 344)
+ ("/Users/hiro/Documents/program/ruby/clowler/workspace/crawler_sample/just-crawling.rb" . 425)
+ ("/Users/hiro/Documents/program/ruby/clowler/workspace/crawler_sample/sample.rb" . 17)
+ ("/Users/hiro/tmep" . 623)
+ ("/Users/hiro/.bash_profile" . 817)
+ ("/Users/hiro/temp" . 513)
+ ("/Users/hiro/Documents/program/ruby/clowler/open-uri.rb" . 102)
+ ("/Users/hiro/Documents/program/ruby/clowler/nokogiri.rb" . 143)
+ ("/Users/hiro/Documents/program/ruby/clowler/selenium.rb" . 156)
+ ("/Users/hiro/Documents/program/ruby/clowler/"
+  (dired-filename . "/Users/hiro/Documents/program/ruby/clowler/.DS_Store"))
+ ("/Users/hiro/.emacs.d/elpa/jump-20151009.129/jump-autoloads.el" . 1345)
+ ("/Users/hiro/.emacs.d/elpa/findr-20130824.507/findr-autoloads.el" . 219)
+ ("/Users/hiro/.emacs.d/elpa/inflections-20121016.157/inflections-autoloads.el" . 424)
+ ("/Users/hiro/Documents/"
   (dired-filename . "/Users/hiro/Documents/.DS_Store"))
  ("/Users/hiro/Documents/program/git/my_second_workspace/cat_lover_said.txt" . 188)
  ("/Users/hiro/Documents/program/git/my_second_workspace/cat_hater_said.txt" . 252)
@@ -10,7 +26,6 @@
  ("/Users/hiro/Documents/program/ruby/StrLib.rb" . 357)
  ("/Users/hiro/Documents/program/paiza/ruby/pro3kai.rb" . 1397)
  ("/Users/hiro/Documents/program/paiza/ruby/get_input.rb" . 62)
- ("/Users/hiro/.emacs.d/init.el" . 11879)
  ("/Users/hiro/.emacs.d/todo.txt" . 1416)
  ("/Users/hiro/.emacs.d/elpa/twittering-mode-20160207.156/twittering-mode-autoloads.el" . 378)
  ("/Users/hiro/.emacs.d/elpa/flycheck-color-mode-line-20131125.2138/flycheck-color-mode-line-autoloads.el" . 953)
@@ -25,7 +40,6 @@
  ("/Users/hiro/Documents/program/ruby/atom.rb" . 37)
  ("/Users/hiro/.emacs.d/elpa/smooth-scroll-20130321.2114/smooth-scroll.el" . 24054)
  ("/Users/hiro/Documents/program/ruby/hashProc.rb" . 112)
- ("/Users/hiro/.bash_profile" . 518)
  ("/Users/hiro/.emacs.d/elisp/smart-compile.el" . 2290)
  ("/Users/hiro/.emacs.d/elpa/anzu-20160130.1855/anzu-autoloads.el" . 1428)
  ("/Users/hiro/.emacs.d/recentf" . 248)
@@ -165,8 +179,6 @@
  ("/Users/hiro/Documents/program/ruby/clowler/RubyCrawlerSample/chapter2/anemone-skip_links_like.rb" . 205)
  ("/Users/hiro/Documents/program/ruby/clowler/anemone-skip_links_like.rb" . 210)
  ("/Users/hiro/Documents/program/ruby/clowler/test.rb" . 165)
- ("/Users/hiro/Documents/program/ruby/clowler/open-uri.rb" . 21)
- ("/Users/hiro/Documents/program/ruby/clowler/nokogiri.rb" . 148)
  ("/Users/hiro/Documents/program/Rails/myApp/app/views/books/_form.html.erb" . 162)
  ("/Users/hiro/Documents/program/Rails/myApp/app/views/hello/"
   (dired-filename . "/Users/hiro/Documents/program/Rails/myApp/app/views/hello/pai.html.erb~"))

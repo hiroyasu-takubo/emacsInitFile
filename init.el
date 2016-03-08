@@ -307,11 +307,12 @@
 ;;https://raw.github.com.ruby/ruby/trunk/misc/ruby-electric.el
 ;;(require 'ruby-electric nil t)
 
-;;ruby-end
-(require 'ruby-end)
 ;;endに対応する行のハイライト
 (when (require 'ruby-block nil t)
   (setq ruby-block-highlight-toggle t))
+
+;;ruby-endの設定
+(require 'ruby-end)
 
 ;;インタラクティブRubyを利用する
 (autoload 'run-ruby "inf-ruby"
@@ -408,6 +409,17 @@
 ;;           line-end))
 ;;    :modes (enh-ruby-mode motion-mode))
 
+;; IDO(Interactively Do Things)の設定
+;; TODO 調べてから使う。
+;; (require 'ido)
+;; (ido-mode t)
+
+;; rinariの設定
+;; (require 'rinari)
+
+;; rhtml-mode
+(require 'rhtml-mode)
+
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
 (add-hook 'ruby-mode-hook
@@ -420,6 +432,12 @@
                  (flycheck-color-mode-line-mode)
                  (ruby-mode-hook-rcodetools)
                  (rubocop-mode)
+                 )
+          )
+
+(add-hook 'rhtml-mode-hook
+          '(lamda()
+                 (rinari-launch)
                  )
           )
 

@@ -38,3 +38,4 @@ helmを使いこなす。とりあえず、M-x helm-descbindsで表示して便�
 ☆rubyというより、Railsの開発環境も整えた方が良さげ。
 ☆flycheck、rubocopの設定をちゃんとしたい。
 日本語入力をするとちらつく。ddskkを使えばいい？
+rinariが正しく使えてないようだ。
