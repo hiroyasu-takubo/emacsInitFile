@@ -315,10 +315,11 @@
 (require 'ruby-end)
 
 ;;インタラクティブRubyを利用する
-(autoload 'run-ruby "inf-ruby"
-  "Run an inferior Ruby process")
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
+;; TODO 設定の仕方が古い？公式サイトを見て、設定を変更する。
+(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
+(eval-after-load 'ruby-mode
+  '(add-hook 'ruby-mode-hook 'inf-ruby-setup-keybindings))
 
 ;;flymake-rubyの設定(flymakeの設定)
 ;; 代わりにflycheckを使う。
@@ -410,7 +411,6 @@
 ;;add-hookがうまく言っていない？
 
 (defun ruby-mode-hooks ()
-  (inf-ruby-keys)
   (ruby-block-mode t)
   ;; (ruby-end-mode)
   ;; (flymake-ruby)
@@ -422,10 +422,10 @@
   )
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 
-(defun rhtml-mode-hooks ()
-  (rinari-launch)
-)
-(add-hook 'rhtml-mode-hook 'rhtml-mode-hooks)
+;; (defun rhtml-mode-hooks ()
+;;   (rinari-launch)
+;; )
+;; (add-hook 'rhtml-mode-hook 'rhtml-mode-hooks)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;HTMLの設定
