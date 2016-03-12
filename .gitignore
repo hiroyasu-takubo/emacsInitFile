@@ -1,3 +1,6 @@
+# 後からまとめてrmしたいときは下記コマンドで行う。
+# git rm --cached `git ls-files --full-name -i --exclude-from=.gitignore`
+
 # 補完のヒストリーファイル
 ac-comphist.dat
 
