@@ -426,7 +426,7 @@
 	  '(lamda()
 		 (inf-ruby-keys)
 		 (ruby-block-mode t)
-		 (ruby-end-mode)
+		 ;; (ruby-end-mode)
 		 ;; (flymake-ruby)
                  (flycheck-mode)
                  (flycheck-color-mode-line-mode)
