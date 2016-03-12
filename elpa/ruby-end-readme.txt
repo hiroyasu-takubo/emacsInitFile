@@ -9,3 +9,4 @@ Then require ruby-end:
   (require 'ruby-end)
 
 ruby-end-mode is automatically started in ruby-mode.
+]

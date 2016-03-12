@@ -331,16 +331,6 @@
 ;; (add-to-list 'flymake-err-line-patterns
 ;; 	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
 
-;; flycheck
-(require 'flycheck)
-(setq flycheck-check-syntax-automatically '(mode-enabled save))
-
-;; flycheck-color-mode-line flycheckをカラフルにする。
-(require 'flycheck-color-mode-line)
-;; 多分flycheckは入っているので、コメントアウト。うまく行かなかったら下記ので。
-;; (eval-after-load "flycheck"
-;;   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-
 ;;smart compileの設定
 ;; これで “C-c C-c”で、編集中の ruby ファイルを実行できます。”C-c c”の方はミニバッファに “ruby xxx.rb”まで入力された状態になるので、こちらは引数など与えたいときに。
 ;; 無限ループなどで止まってくれないruby実行中のバッファを殺すにはM-x kill-comilation
@@ -394,20 +384,16 @@
 ;; Install rubocopの設定が必要。
 (require 'rubocop)
 
-;; TODO 後で設定する。 flycheckのcheckツールにrubocopを導入。
-;; (flycheck-define-checker ruby-rubocop
-;;   "A Ruby syntax and style checker using the RuboCop tool."
-;;   :command ("rubocop" "--format" "emacs" "--silent"
-;;             (config-file "--config" flycheck-rubocoprc)
-;;             source)
-;;   :error-patterns
-;;   ((warning line-start
-;;             (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-;;             line-end)
-;;    (error line-start
-;;           (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-;;           line-end))
-;;    :modes (enh-ruby-mode motion-mode))
+;; flycheck
+(require 'flycheck)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+;; flycheck-color-mode-line flycheckをカラフルにする。
+(require 'flycheck-color-mode-line)
+;; 多分flycheckは入っているので、コメントアウト。うまく行かなかったら下記ので。
+;; (eval-after-load "flycheck"
+;;   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
 
 ;; IDO(Interactively Do Things)の設定
 ;; TODO 調べてから使う。
@@ -422,25 +408,24 @@
 
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
-(add-hook 'ruby-mode-hook
-	  '(lamda()
-		 (inf-ruby-keys)
-		 (ruby-block-mode t)
-		 ;; (ruby-end-mode)
-		 ;; (flymake-ruby)
-                 (flycheck-mode)
-                 (flycheck-color-mode-line-mode)
-                 (ruby-mode-hook-rcodetools)
-                 (rubocop-mode)
-                 )
-          )
 
-(add-hook 'rhtml-mode-hook
-          '(lamda()
-                 (rinari-launch)
-                 )
-          )
+(defun ruby-mode-hooks ()
+  (inf-ruby-keys)
+  (ruby-block-mode t)
+  ;; (ruby-end-mode)
+  ;; (flymake-ruby)
+  (setq flycheck-checker 'ruby-rubocop)
+  ;; (rubocop-mode)
+  (flycheck-mode)
+  ;; (flycheck-color-mode-line-mode)
+  ;; (ruby-mode-hook-rcodetools)
+  )
+(add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 
+(defun rhtml-mode-hooks ()
+  (rinari-launch)
+)
+(add-hook 'rhtml-mode-hook 'rhtml-mode-hooks)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;HTMLの設定
