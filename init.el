@@ -204,6 +204,10 @@
 ;;yesと入力するのではなく、y
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;;音を鳴らさない
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;色の設定
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -406,6 +410,10 @@
 ;; rhtml-mode
 (require 'rhtml-mode)
 
+;; electric-pair-mode
+;; (add-to-list 'electric-pair-pairs '(?| . ?|))
+(setq electric-pair-pairs '(?| . ?|))
+
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
 
@@ -420,6 +428,7 @@
   ;; (ruby-mode-hook-rcodetools)
   (robe-mode)
   (ac-robe-setup)
+  (electric-pair-mode t)
   )
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 
