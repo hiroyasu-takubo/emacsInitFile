@@ -640,28 +640,29 @@
 ; Enable guide-key-mode
 (guide-key-mode 1)
 
-;; helmの設定
-(require 'helm-config)
-(helm-mode t)
+;; ;; helmの設定
+;; (require 'helm-config)
+;; (helm-mode t)
 
-;; helm-describesの設定
-(require 'helm-descbinds)
-(helm-descbinds-mode)
+;; ;; helm-describesの設定
+;; (require 'helm-descbinds)
+;; (helm-descbinds-mode)
 
-;; helmのデフォルトコマンド設定からの変更
-;; C-hはバッファの1文字前に削除をしたい。
-(define-key helm-map (kbd "C-h") 'delete-backward-char)
-(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
+;; ;; helmのデフォルトコマンド設定からの変更
+;; ;; C-hはバッファの1文字前に削除をしたい。
+;; (define-key helm-map (kbd "C-h") 'delete-backward-char)
+;; (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 
-;; helmコマンドのキーバーインド設定
-(define-key global-map (kbd "M-x")   'helm-M-x)
-(define-key global-map (kbd "C-x b")   'helm-buffers-list)
-(define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map (kbd "C-x C-r") 'helm-recentf)
-(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
-;; ファイルを探し中にTABで補完するようにする。元はhelm-select-actionが割り当てられている。TABはhelmでよく使うキーらしいので、他の補完方法を考える。helmのチュートリアルを読んでみる。
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+;; ;; helmコマンドのキーバーインド設定
+;; (define-key global-map (kbd "M-x")   'helm-M-x)
+;; (define-key global-map (kbd "C-x b")   'helm-buffers-list)
+;; (define-key global-map (kbd "C-x C-f") 'helm-find-files)
+;; (define-key global-map (kbd "C-x C-r") 'helm-recentf)
+;; (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+;; ;; ファイルを探し中にTABで補完するようにする。元はhelm-select-actionが割り当てられている。TABはhelmでよく使うキーらしいので、他の補完方法を考える。helmのチュートリアルを読んでみる。
+;; (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+;; (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+
 
 
 
