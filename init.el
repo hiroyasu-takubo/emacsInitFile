@@ -306,11 +306,6 @@
       ruby-deep-indent-paren-style nil ;;改行時のインデントを調整する。
       ruby-indent-tabs-mode nil)       ;;インデントにスペースを使用する。
 
-;;ruby blockの設定
-;;エラーが出るためコメントアウト ruby-endを使う。
-;;https://raw.github.com.ruby/ruby/trunk/misc/ruby-electric.el
-;;(require 'ruby-electric nil t)
-
 ;;endに対応する行のハイライト
 (when (require 'ruby-block nil t)
   (setq ruby-block-highlight-toggle t))
@@ -319,26 +314,8 @@
 (require 'ruby-end)
 
 ;;インタラクティブRubyを利用する
-;; TODO 設定の仕方が古い？公式サイトを見て、設定を変更する。
-;; (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-;; (autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
-;; (eval-after-load 'ruby-mode
-;;   '(add-hook 'ruby-mode-hook 'inf-ruby-setup-keybindings))
-
 (autoload 'inf-ruby-minor-mode "inf-ruby" "Run an inferior Ruby process" t)
 (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
-
-
-;;flymake-rubyの設定(flymakeの設定)
-;; 代わりにflycheckを使う。
-;; (require 'flymake)
-;; (defun flymake-ruby-init ()
-;;   (list "ruby" (list "-c" (flymake-init-create-temp-buffer-copy
-;; 			   'flymake-create-temp-inplace))))
-;; (add-to-list ' flymake-allowed-file-name-masks
-;; 	     '("\\.rb\\'" flymake-ruby-init))
-;; (add-to-list 'flymake-err-line-patterns
-;; 	     '("\\(.*\\):(\\([0-9]+\\)): \\(.*\\)" 1 2 nil 3))
 
 ;;smart compileの設定
 ;; これで “C-c C-c”で、編集中の ruby ファイルを実行できます。”C-c c”の方はミニバッファに “ruby xxx.rb”まで入力された状態になるので、こちらは引数など与えたいときに。
@@ -398,15 +375,6 @@
 
 ;; flycheck-color-mode-line flycheckをカラフルにする。
 (require 'flycheck-color-mode-line)
-;; 多分flycheckは入っているので、コメントアウト。うまく行かなかったら下記ので。
-;; (eval-after-load "flycheck"
-;;   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-
-
-;; IDO(Interactively Do Things)の設定
-;; TODO 調べてから使う。
-;; (require 'ido)
-;; (ido-mode t)
 
 ;; rinariの設定
 ;; (require 'rinari)
@@ -415,6 +383,7 @@
 (require 'rhtml-mode)
 
 ;; electric-pair-mode
+;; TODO ミニバッファでエラーがでるようになるためコメントアウト
 ;; (add-to-list 'electric-pair-pairs '(?| . ?|))
 ;; (setq electric-pair-pairs '(?| . ?|))
 
@@ -424,13 +393,8 @@
 (defun ruby-mode-hooks ()
   (ruby-block-mode t)
   (inf-ruby-minor-mode)
-  ;; (ruby-end-mode)
-  ;; (flymake-ruby)
   (setq flycheck-checker 'ruby-rubocop)
-  ;; (rubocop-mode)
   (flycheck-mode)
-  ;; (flycheck-color-mode-line-mode)
-  ;; (ruby-mode-hook-rcodetools)
   (robe-mode)
   (ac-robe-setup)
   ;; (electric-pair-mode t)
