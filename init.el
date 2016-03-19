@@ -320,10 +320,14 @@
 
 ;;インタラクティブRubyを利用する
 ;; TODO 設定の仕方が古い？公式サイトを見て、設定を変更する。
-(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
-(eval-after-load 'ruby-mode
-  '(add-hook 'ruby-mode-hook 'inf-ruby-setup-keybindings))
+;; (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+;; (autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
+;; (eval-after-load 'ruby-mode
+;;   '(add-hook 'ruby-mode-hook 'inf-ruby-setup-keybindings))
+
+(autoload 'inf-ruby-minor-mode "inf-ruby" "Run an inferior Ruby process" t)
+(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+
 
 ;;flymake-rubyの設定(flymakeの設定)
 ;; 代わりにflycheckを使う。
@@ -412,13 +416,14 @@
 
 ;; electric-pair-mode
 ;; (add-to-list 'electric-pair-pairs '(?| . ?|))
-(setq electric-pair-pairs '(?| . ?|))
+;; (setq electric-pair-pairs '(?| . ?|))
 
 ;;ruby-mode-hook ruby-mode起動時に適用する
 ;;add-hookがうまく言っていない？
 
 (defun ruby-mode-hooks ()
   (ruby-block-mode t)
+  (inf-ruby-minor-mode)
   ;; (ruby-end-mode)
   ;; (flymake-ruby)
   (setq flycheck-checker 'ruby-rubocop)
@@ -428,7 +433,7 @@
   ;; (ruby-mode-hook-rcodetools)
   (robe-mode)
   (ac-robe-setup)
-  (electric-pair-mode t)
+  ;; (electric-pair-mode t)
   )
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 
@@ -640,28 +645,28 @@
 ; Enable guide-key-mode
 (guide-key-mode 1)
 
-;; ;; helmの設定
-;; (require 'helm-config)
-;; (helm-mode t)
+;; helmの設定
+(require 'helm-config)
+(helm-mode t)
 
-;; ;; helm-describesの設定
-;; (require 'helm-descbinds)
-;; (helm-descbinds-mode)
+;; helm-describesの設定
+(require 'helm-descbinds)
+(helm-descbinds-mode)
 
-;; ;; helmのデフォルトコマンド設定からの変更
-;; ;; C-hはバッファの1文字前に削除をしたい。
-;; (define-key helm-map (kbd "C-h") 'delete-backward-char)
-;; (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
+;; helmのデフォルトコマンド設定からの変更
+;; C-hはバッファの1文字前に削除をしたい。
+(define-key helm-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 
-;; ;; helmコマンドのキーバーインド設定
-;; (define-key global-map (kbd "M-x")   'helm-M-x)
-;; (define-key global-map (kbd "C-x b")   'helm-buffers-list)
-;; (define-key global-map (kbd "C-x C-f") 'helm-find-files)
-;; (define-key global-map (kbd "C-x C-r") 'helm-recentf)
-;; (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
-;; ;; ファイルを探し中にTABで補完するようにする。元はhelm-select-actionが割り当てられている。TABはhelmでよく使うキーらしいので、他の補完方法を考える。helmのチュートリアルを読んでみる。
-;; (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-;; (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+;; helmコマンドのキーバーインド設定
+(define-key global-map (kbd "M-x")   'helm-M-x)
+(define-key global-map (kbd "C-x b")   'helm-buffers-list)
+(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "C-x C-r") 'helm-recentf)
+(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+;; ファイルを探し中にTABで補完するようにする。元はhelm-select-actionが割り当てられている。TABはhelmでよく使うキーらしいので、他の補完方法を考える。helmのチュートリアルを読んでみる。
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
 
 
