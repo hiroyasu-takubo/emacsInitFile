@@ -19,6 +19,7 @@
 
 ;; load-pathに追加
 (add-to-load-path "elisp" "conf" "public_repos" "elpa" "el-get")
+(setq exec-path (cons (expand-file-name "~/.rbenv/shims") exec-path))
 ;;エラーが出るので先頭でghc用のロードパスを定義してみる。
 (add-to-list 'load-path "/usr/bin")
 ;;elisp内にはghc-modがない。設定ミス？
@@ -516,10 +517,16 @@
   ;; set indent tabs mode false
   (setq-default indent-tabs-mode nil)　
   ;; insert newline before bracket
-  (setq cssm-new-line-before-closing-bracket t))
+  (setq cssm-new-line-before-closing-bracket t)
+  )
 
 (add-hook 'css-mode-hook 'css-mode-hooks)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;scss-modeの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;他環境移行時の設定 今はエラーが出るため、コメントアウト
@@ -632,7 +639,8 @@
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
-
+;; grep-editの設定
+(require 'grep-edit)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
