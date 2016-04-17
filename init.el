@@ -125,6 +125,8 @@
 ;;キーバインディング
 (define-key global-map (kbd "C-m") 'newline-and-indent)
 (define-key global-map (kbd "C-t") 'other-window)
+;; C-zをやると落ちるので、無効にする
+(define-key global-map (kbd "C-z") nil)
 
 ;;環境変数の設定
 (add-to-list 'exec-path "/out/local/bin")
