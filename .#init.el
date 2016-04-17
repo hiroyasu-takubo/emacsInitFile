@@ -1,1 +1,0 @@
-hiro@hiroyasu-takubo-no-Mac-mini-2.local.7067
