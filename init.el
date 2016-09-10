@@ -683,8 +683,10 @@
 
 ;; whitespace スペースの可視化
 (require 'whitespace)
+;; (global-whitespace-mode t)
+(setq-default show-trailing-whitespace t)
 (setq whitespace-style '(face           ; faceで可視化
-                         trailing       ; 行末
+                         ;; trailing       ; 行末
                          tabs           ; タブ
 ;;                         empty          ; 先頭/末尾の空行
                          space-mark     ; 表示のマッピング
@@ -694,7 +696,7 @@
 (setq whitespace-display-mappings
       '((tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
 
-(global-whitespace-mode 1)
+;; (whitespace-newline-mode t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;end of file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
