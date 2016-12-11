@@ -18,7 +18,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; load-pathに追加
-(add-to-load-path "elisp" "conf" "public_repos" "elpa" "el-get")
+(add-to-load-path "elisp" "conf" "public_repos" "elpa" "el-get" "plugins")
 (setq exec-path (cons (expand-file-name "~/.rbenv/shims") exec-path))
 ;;エラーが出るので先頭でghc用のロードパスを定義してみる。
 (add-to-list 'load-path "/usr/bin")
@@ -244,6 +244,9 @@
     (error "The buffer has been modified")))
 (global-set-key "\M-r" 'revert-buffer-no-confirm)
 
+;; exec-path-from-shellの設定
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;色の設定
@@ -306,7 +309,13 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (misterioso))))
+ '(anzu-deactivate-region t)
+ '(anzu-mode-lighter "")
+ '(anzu-search-threshold 4000)
+ '(custom-enabled-themes (quote (misterioso)))
+ '(package-selected-packages
+   (quote
+    (exec-path-from-shell evil-iedit-state py-autopep8 jedi twittering-mode sticky smooth-scroll sml-modeline scss-mode ruby-end rubocop robe magit jump helm-descbinds helm-R guide-key flycheck-color-mode-line el-get dummy-package ddskk auto-install auto-complete anzu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -385,15 +394,7 @@
 
 (set-face-attribute 'anzu-mode-line nil
                     :foreground "yellow" :weight 'bold)
-(custom-set-variables
- ;; マイナーモード名。常に有効にする予定なので、唐文字を表示
- '(anzu-mode-lighter "")
- ;; 置換コマンドをリージョン指定で行った時に、コマンド実行直後リージョンのハイライトを無効にする。みずらいので
- '(anzu-deactivate-region t) 
- ;; マッチ数の検索時、この数以上は数えないようにする。数が多いと検索が遅くなる。
-'(anzu-search-threshold 4000)
- ;; '(anzu-use-mimego t)
-)
+
 
 ;; robeの設定
 ;; Install pryのインストールが必要
@@ -563,6 +564,47 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'scss-mode "scss-mode")
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;pythoの設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; jediの設定
+;; install jedi、virtualenvをインストールする必要がある。pipでやるのが簡単？
+;; (jedi:setup)
+;;   (define-key jedi-mode-map (kbd "<C-tab>") nil) ;;C-tabはウィンドウの移動に用いる
+;;   (setq jedi:complete-on-dot t)
+;;   (setq ac-sources
+;;     (delete 'ac-source-words-in-same-mode-buffers ac-sources)) ;;jediの補完候補だけでいい
+;;   (add-to-list 'ac-sources 'ac-source-filename)
+;;   (add-to-list 'ac-sources 'ac-source-jedi-direct)
+;;   (define-key python-mode-map "\C-ct" 'jedi:goto-definition)
+;;   (define-key python-mode-map "\C-cb" 'jedi:goto-definition-pop-marker)
+;;   (define-key python-mode-map "\C-cr" 'helm-jedi-related-names)
+
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)
+
+;; autopep8の設定
+;; install autopep8のインストールが必要
+(require 'py-autopep8)
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+(setq py-autopep8-options '("--max-line-length=200"))
+(setq flycheck-flake8-maximum-line-length 200)
+(py-autopep8-enable-on-save)
+
+;; ;; pyflakesの設定
+;; 後で設定する。
+;; ;; install pyflakesのインストールが必要
+;; (flycheck-mode t)
+;;     ;;errorやwarningを表示する
+;;     (require 'flymake-python-pyflakes)
+;; (flymake-python-pyflakes-load)
+
+;; yasnippetの設定
+;; install yasnippetのインストールが必要
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;他環境移行時の設定 今はエラーが出るため、コメントアウト
