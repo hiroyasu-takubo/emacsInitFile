@@ -566,7 +566,7 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;pythoの設定
+;;pythonの設定
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; jediの設定
@@ -582,8 +582,8 @@
 ;;   (define-key python-mode-map "\C-cb" 'jedi:goto-definition-pop-marker)
 ;;   (define-key python-mode-map "\C-cr" 'helm-jedi-related-names)
 
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;; autopep8の設定
 ;; install autopep8のインストールが必要
