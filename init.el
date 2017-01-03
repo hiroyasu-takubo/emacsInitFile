@@ -14,7 +14,7 @@
       (let ((default-directory
               (expand-file-name (concat user-emacs-directory path))))
         (add-to-list 'load-path default-directory)
-        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)	    
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; load-pathに追加
@@ -38,6 +38,7 @@
 	       '("ELPA" . "http://tromey.com/elpa/"))
   (add-to-list 'package-archives
 	       '("melpa"."http://melpa.org/packages/"))
+
 ;;インストールしたパッケージにロードパスを通して読み込む。
 (package-initialize))
 
@@ -315,7 +316,7 @@
  '(custom-enabled-themes (quote (misterioso)))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell evil-iedit-state py-autopep8 jedi twittering-mode sticky smooth-scroll sml-modeline scss-mode ruby-end rubocop robe magit jump helm-descbinds helm-R guide-key flycheck-color-mode-line el-get dummy-package ddskk auto-install auto-complete anzu))))
+    (yasnippet exec-path-from-shell evil-iedit-state py-autopep8 jedi twittering-mode sticky smooth-scroll sml-modeline scss-mode ruby-end rubocop robe magit jump helm-descbinds helm-R guide-key flycheck-color-mode-line el-get dummy-package ddskk auto-install auto-complete anzu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -581,9 +582,13 @@
 ;;   (define-key python-mode-map "\C-ct" 'jedi:goto-definition)
 ;;   (define-key python-mode-map "\C-cb" 'jedi:goto-definition-pop-marker)
 ;;   (define-key python-mode-map "\C-cr" 'helm-jedi-related-names)
-
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
+(require 'jedi)
+;; M-TABで起動。
+(add-hook 'python-mode-hook
+          '(lambda()
+             (jedi:ac-setup)
+             (setq jedi:complete-on-dot t)
+             (local-set-key (kbd "M-TAB") 'jedi:complete)))
 
 ;; autopep8の設定
 ;; install autopep8のインストールが必要
