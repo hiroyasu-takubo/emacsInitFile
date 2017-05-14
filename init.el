@@ -316,7 +316,7 @@
  '(custom-enabled-themes (quote (misterioso)))
  '(package-selected-packages
    (quote
-    (yasnippet exec-path-from-shell evil-iedit-state py-autopep8 jedi twittering-mode sticky smooth-scroll sml-modeline scss-mode ruby-end rubocop robe magit jump helm-descbinds helm-R guide-key flycheck-color-mode-line el-get dummy-package ddskk auto-install auto-complete anzu))))
+    (php-completion php-mode exec-path-from-shell evil-iedit-state py-autopep8 jedi twittering-mode sticky smooth-scroll sml-modeline scss-mode ruby-end rubocop robe magit jump helm-descbinds helm-R guide-key flycheck-color-mode-line el-get dummy-package ddskk auto-install auto-complete anzu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -648,6 +648,22 @@
 ;; (defvar my/el-get-packages
 ;;   '(howm))
 ;; (el-get 'sync my/el-get-packages)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;php関連の設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'php-mode)
+(add-hook 'php-mode-hook
+      (lambda ()
+        (require 'php-completion)
+        (php-completion-mode t)
+        (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
+        (make-local-variable 'ac-sources)
+        (setq ac-sources '(
+                   ac-source-words-in-same-mode-buffers
+                   ac-source-php-completion
+                   ac-source-filename
+                   ))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
