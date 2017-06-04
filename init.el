@@ -663,7 +663,12 @@
                    ac-source-words-in-same-mode-buffers
                    ac-source-php-completion
                    ac-source-filename
-                   ))))
+                   ))
+        (setq tab-width 2)
+        (setq indent-tabs-mode t)
+        (setq c-basic-offset 2)
+      )
+)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
